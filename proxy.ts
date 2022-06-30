@@ -168,7 +168,7 @@ if (server instanceof https.Server) {
     res.writeHead(301, { "Location": "https://" + req.headers['host']! + req.url });
     res.end();
   });
-  httpServer.on('listening', () => console.debug("@colyseus/proxy http -> https listening at", 80));
+  httpServer.on('listening', () => console.debug("@colyseus/proxy http -> https listening at", HTTP_PORT));
   httpServer.listen(HTTP_PORT, HTTP_IP);
 
 } else {
