@@ -165,7 +165,7 @@ if (server instanceof https.Server) {
   server.listen(HTTPS_PORT, HTTP_IP);
 
   const httpServer = http.createServer((req, res) => {
-    res.writeHead(301, { "Location": "https://" + req.headers['host']! + req.url });
+    res.writeHead(301, { "Location": "https://" + req.headers['host']! + req.url, "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "*" });
     res.end();
   });
   httpServer.on('listening', () => console.debug("@colyseus/proxy http -> https listening at", HTTP_PORT));
