@@ -3,8 +3,9 @@ import http from "http";
 import https from "https";
 import httpProxy from "http-proxy";
 import { getNodeList, listen, Node, Action, cleanUpNode } from "./discovery";
+import 'dotenv/config'
 
-const HTTPS_PORT = 443;
+const HTTPS_PORT = Number(process.env.HTTPS_PORT || 443);
 const HTTP_PORT = Number(process.env.PORT || 80);
 const HTTP_IP = process.env.IP || '0.0.0.0';
 const SOCKET_TIMEOUT = Number(process.env.SOCKET_TIMEOUT || 30000); // 30 seconds default socket timeout
