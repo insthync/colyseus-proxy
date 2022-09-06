@@ -5,7 +5,9 @@
   "main": "proxy.js",
   "scripts": {
     "test": "mocha --require ts-node/register test/*Test.ts",
-    "prepublishOnly": "tsc"
+    "build": "tsc",
+    "start:dev": "ts-node-dev --respawn --transpile-only proxy.ts",
+    "start": "node proxy.js"
   },
   "bin": {
     "colyseus-proxy": "./bin/proxy"
@@ -30,17 +32,18 @@
   },
   "homepage": "https://github.com/colyseus/proxy#readme",
   "devDependencies": {
-    "@types/http-proxy": "^1.17.3",
-    "@types/ioredis": "^4.0.10",
-    "@types/mocha": "^5.2.6",
-    "@types/node": "^11.12.1",
-    "mocha": "^6.0.2",
-    "ts-node": "^8.6.2",
-    "typescript": "^4.2.2"
+    "@types/http-proxy": "^1.17.9",
+    "@types/ioredis": "^4.28.10",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.7.15",
+    "mocha": "^10.0.0",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.8.2"
   },
   "dependencies": {
-    "dotenv": "^16.0.1",
-    "http-proxy": "^1.18.0",
-    "ioredis": "^4.9.0"
+    "dotenv": "^16.0.2",
+    "http-proxy": "^1.18.1",
+    "ioredis": "^5.2.3"
   }
 }
