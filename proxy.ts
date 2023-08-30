@@ -69,7 +69,11 @@ function register(node: Node) {
     console.error(err.stack);
 
     const errorMessage = err.message.toLowerCase();
-    if(!errorMessage.includes("socket hang up") && !errorMessage.includes("econnreset")) {
+    if(
+        !errorMessage.includes("socket hang up") &&
+        !errorMessage.includes("econnreset") &&
+        !errorMessage.includes("by the other party")
+    ) {
       console.warn(`node ${node.processId}/${node.address} failed, unregistering`);
       unregister(node);
       cleanUpNode(node).then(() => console.log(`cleaned up ${node.processId} presence`));
@@ -117,6 +121,18 @@ getNodeList().
   catch(err => console.error(err));
 
 const reqHandler = (req: http.IncomingMessage, res: http.ServerResponse) => {
+  const healthCheckPath = process.env.HEALTH_CHECK_PATH;
+  if (
+    healthCheckPath &&
+    (req.url === healthCheckPath ||
+      (healthCheckPath[0] === "*" &&
+        req.url?.endsWith(healthCheckPath.slice(1))))
+  ) {
+    res.writeHead(200, { 'Content-Type': 'text/plain'});
+    res.end('OK');
+    return;
+  }
+
   const proxy = getProxy(req.url!);
 
   if (proxy) {
